@@ -34,13 +34,13 @@ export default function DescriptionGeneratorPage() {
           <h3 className="text-xl font-semibold text-foreground">The Anatomy of a Perfect Description</h3>
           
           <p className="text-muted-foreground">
-            The ideal YouTube description follows a proven structure: a compelling hook in the first 150 characters (visible before &quot;Show more&quot;), followed by a detailed overview, timestamps for navigation, relevant links, and strategic keyword placement. Our generator helps you create this structure automatically.
+            The ideal YouTube description follows a proven structure: a compelling hook in the first 150 characters (visible before "Show more"), followed by a detailed overview, timestamps for navigation, relevant links, and strategic keyword placement. Our generator helps you create this structure automatically.
           </p>
 
           <h3 className="text-xl font-semibold text-foreground">Why the First 150 Characters Matter</h3>
           
           <p className="text-muted-foreground">
-            YouTube only displays the first 150 characters of your description in search results and above the fold. This &quot;above the fold&quot; content must hook viewers and include your most important keywords. It&apos;s your elevator pitch—make every character count.
+            YouTube only displays the first 150 characters of your description in search results and above the fold. This "above the fold" content must hook viewers and include your most important keywords. It&apos;s your elevator pitch—make every character count.
           </p>
 
           <h3 className="text-xl font-semibold text-foreground">The Power of Timestamps</h3>

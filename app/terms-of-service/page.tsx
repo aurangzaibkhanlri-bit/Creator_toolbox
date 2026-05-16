@@ -20,7 +20,7 @@ export default function TermsOfServicePage() {
 
       <div className="prose prose-invert max-w-none">
         <p className="text-muted-foreground">
-          Welcome to CreatorToolbox AI. By accessing or using our website at creatortoolbox.ai (the &quot;Site&quot;) and our services, you agree to be bound by these Terms of Service (&quot;Terms&quot;). Please read them carefully.
+          Welcome to CreatorToolbox AI. By accessing or using our website at creatortoolbox.ai (the "Site") and our services, you agree to be bound by these Terms of Service ("Terms"). Please read them carefully.
         </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-10">1. Acceptance of Terms</h2>
@@ -48,7 +48,7 @@ export default function TermsOfServicePage() {
         </p>
         <ul className="text-muted-foreground">
           <li>Use the services only for lawful purposes</li>
-          <li>Not attempt to disrupt or compromise the Site&apos;s security</li>
+          <li>Not attempt to disrupt or compromise the Site's security</li>
           <li>Not use automated systems to access the Site without permission</li>
           <li>Not upload content that infringes on third-party rights</li>
           <li>Not use the services to create misleading or deceptive content</li>
@@ -72,7 +72,7 @@ export default function TermsOfServicePage() {
 
         <h2 className="text-2xl font-bold text-foreground mt-10">6. Disclaimer of Warranties</h2>
         <p className="text-muted-foreground">
-          OUR SERVICES ARE PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. WE DO NOT WARRANT THAT:
+          OUR SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. WE DO NOT WARRANT THAT:
         </p>
         <ul className="text-muted-foreground">
           <li>The services will be uninterrupted or error-free</li>
@@ -80,9 +80,6 @@ export default function TermsOfServicePage() {
           <li>The services will meet your specific requirements</li>
           <li>Any errors in the services will be corrected</li>
         </ul>
-        <p className="text-muted-foreground">
-          Your use of our services and any results obtained are at your own risk. We provide tools for optimization guidance, but cannot guarantee specific outcomes for your YouTube channel.
-        </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-10">7. Limitation of Liability</h2>
         <p className="text-muted-foreground">
@@ -100,7 +97,7 @@ export default function TermsOfServicePage() {
 
         <h2 className="text-2xl font-bold text-foreground mt-10">8. Indemnification</h2>
         <p className="text-muted-foreground">
-          You agree to indemnify, defend, and hold harmless CreatorToolbox AI, its officers, directors, employees, and agents from any claims, damages, losses, or expenses (including reasonable attorney&apos;s fees) arising from:
+          You agree to indemnify, defend, and hold harmless CreatorToolbox AI, its officers, directors, employees, and agents from any claims, damages, losses, or expenses (including reasonable attorney's fees) arising from:
         </p>
         <ul className="text-muted-foreground">
           <li>Your use of our services</li>

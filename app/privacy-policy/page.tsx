@@ -20,7 +20,7 @@ export default function PrivacyPolicyPage() {
 
       <div className="prose prose-invert max-w-none">
         <p className="text-muted-foreground">
-          At CreatorToolbox AI (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website creatortoolbox.ai (the &quot;Site&quot;) and use our services.
+          At CreatorToolbox AI ("we," "our," or "us"), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website creatortoolbox.ai (the "Site") and use our services.
         </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-10">1. Information We Collect</h2>
@@ -114,53 +114,3 @@ export default function PrivacyPolicyPage() {
           <li><strong>Right to Data Portability:</strong> Receive your data in a structured format</li>
           <li><strong>Right to Object:</strong> Object to processing based on legitimate interests</li>
         </ul>
-        <p className="text-muted-foreground">
-          To exercise these rights, contact us at privacy@creatortoolbox.ai.
-        </p>
-
-        <h2 className="text-2xl font-bold text-foreground mt-10">6. Your Rights Under CCPA (California Residents)</h2>
-        <p className="text-muted-foreground">
-          If you are a California resident, you have rights under the California Consumer Privacy Act (CCPA):
-        </p>
-        <ul className="text-muted-foreground">
-          <li><strong>Right to Know:</strong> Request disclosure of personal information collected</li>
-          <li><strong>Right to Delete:</strong> Request deletion of your personal information</li>
-          <li><strong>Right to Opt-Out:</strong> Opt out of the sale of personal information</li>
-          <li><strong>Right to Non-Discrimination:</strong> Not be discriminated against for exercising rights</li>
-        </ul>
-        <p className="text-muted-foreground">
-          <strong>Note:</strong> We do not sell personal information to third parties.
-        </p>
-
-        <h2 className="text-2xl font-bold text-foreground mt-10">7. Data Retention</h2>
-        <p className="text-muted-foreground">
-          We retain personal information only as long as necessary to fulfill the purposes outlined in this policy, unless a longer retention period is required by law. Analytics data is retained in aggregated, anonymized form.
-        </p>
-
-        <h2 className="text-2xl font-bold text-foreground mt-10">8. Data Security</h2>
-        <p className="text-muted-foreground">
-          We implement appropriate technical and organizational measures to protect your personal information. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security.
-        </p>
-
-        <h2 className="text-2xl font-bold text-foreground mt-10">9. Children&apos;s Privacy</h2>
-        <p className="text-muted-foreground">
-          Our Site is not intended for children under 13 years of age. We do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us immediately.
-        </p>
-
-        <h2 className="text-2xl font-bold text-foreground mt-10">10. Changes to This Privacy Policy</h2>
-        <p className="text-muted-foreground">
-          We may update this Privacy Policy from time to time. The updated version will be indicated by an updated &quot;Last updated&quot; date. We encourage you to review this policy periodically.
-        </p>
-
-        <h2 className="text-2xl font-bold text-foreground mt-10">11. Contact Us</h2>
-        <p className="text-muted-foreground">
-          If you have questions about this Privacy Policy or our practices, please contact us:
-        </p>
-        <ul className="text-muted-foreground">
-          <li>Email: privacy@creatortoolbox.ai</li>
-          <li>Contact Form: creatortoolbox.ai/contact</li>
-        </ul>
-      </div>
-    </div>
-  )
-}

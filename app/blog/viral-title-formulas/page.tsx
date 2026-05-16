@@ -56,9 +56,6 @@ export default function ViralTitleFormulasPage() {
         <p className="text-muted-foreground">
           Examples: &quot;7 Camera Settings I Wish I Knew Earlier&quot; | &quot;15 Websites That Pay You Daily&quot;
         </p>
-        <p className="text-muted-foreground">
-          Why it works: Numbers set clear expectations. Viewers know exactly what they&apos;re getting, making the click feel lower risk. Odd numbers (3, 5, 7) tend to perform slightly better than even numbers. The word &quot;That&quot; connects the list to a tangible benefit.
-        </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-10">2. The Challenge Formula</h2>
         <p className="text-muted-foreground">
@@ -66,9 +63,6 @@ export default function ViralTitleFormulasPage() {
         </p>
         <p className="text-muted-foreground">
           Examples: &quot;I Studied 12 Hours a Day for 30 Days&quot; | &quot;I Lived on $1/Day for a Week&quot;
-        </p>
-        <p className="text-muted-foreground">
-          Why it works: Challenge videos create natural curiosity about the outcome. The personal &quot;I&quot; makes it feel authentic and relatable. Specific timeframes add credibility and structure. This formula performs exceptionally well for lifestyle and educational content.
         </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-10">3. The Curiosity Gap Formula</h2>
@@ -78,9 +72,6 @@ export default function ViralTitleFormulasPage() {
         <p className="text-muted-foreground">
           Examples: &quot;Why Nobody Talks About This Productivity Hack&quot; | &quot;Why I Quit My $300K Job&quot;
         </p>
-        <p className="text-muted-foreground">
-          Why it works: The word &quot;Why&quot; signals explanation-based content that viewers find valuable. The surprising element creates a knowledge gap that viewers want to close. This formula works best when the statement challenges conventional wisdom.
-        </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-10">4. The Transformation Formula</h2>
         <p className="text-muted-foreground">
@@ -88,9 +79,6 @@ export default function ViralTitleFormulasPage() {
         </p>
         <p className="text-muted-foreground">
           Examples: &quot;How I Went From 0 to 100K Subscribers in 6 Months&quot; | &quot;How I Lost 50 Pounds Without Dieting&quot;
-        </p>
-        <p className="text-muted-foreground">
-          Why it works: Transformation stories are inherently compelling. They promise a roadmap from an undesirable state to a desirable one. The specific numbers add credibility and make the transformation feel achievable.
         </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-10">5. The Mistake/Warning Formula</h2>
@@ -100,9 +88,6 @@ export default function ViralTitleFormulasPage() {
         <p className="text-muted-foreground">
           Examples: &quot;5 Mistakes That Are Killing Your Videos&quot; | &quot;Stop Doing This If You Want to Grow&quot;
         </p>
-        <p className="text-muted-foreground">
-          Why it works: Fear of loss is a powerful motivator—often stronger than desire for gain. Viewers click because they want to make sure they&apos;re not making these mistakes. The urgency implied by &quot;killing&quot; or &quot;stop&quot; drives immediate action.
-        </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-10">6. The Comparison Formula</h2>
         <p className="text-muted-foreground">
@@ -111,9 +96,6 @@ export default function ViralTitleFormulasPage() {
         <p className="text-muted-foreground">
           Examples: &quot;iPhone vs Android: The Truth in 2025&quot; | &quot;$50 vs $500 Camera: Can You Tell the Difference?&quot;
         </p>
-        <p className="text-muted-foreground">
-          Why it works: Comparisons tap into natural decision-making processes. Viewers often search for comparisons before making purchases. The &quot;vs&quot; format promises an objective analysis, and the question format at the end creates additional curiosity.
-        </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-10">7. The Secret/Reveal Formula</h2>
         <p className="text-muted-foreground">
@@ -121,9 +103,6 @@ export default function ViralTitleFormulasPage() {
         </p>
         <p className="text-muted-foreground">
           Examples: &quot;The Editing Trick Pro YouTubers Don&apos;t Share&quot; | &quot;The Investment Strategy Banks Don&apos;t Want You to Know&quot;
-        </p>
-        <p className="text-muted-foreground">
-          Why it works: This formula suggests exclusive, insider knowledge. It implies that watching this video gives access to information that others are gatekeeping. Use carefully—overuse can make your channel feel clickbaity.
         </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-10">How to Use These Formulas Effectively</h2>

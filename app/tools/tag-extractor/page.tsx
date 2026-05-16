@@ -58,34 +58,6 @@ export default function TagExtractorPage() {
             <li>Add your channel name and branded terms</li>
             <li>Include broader category tags</li>
           </ul>
-
-          <h3 className="text-xl font-semibold text-foreground">Analyzing Competitor Tags</h3>
-          
-          <p className="text-muted-foreground">
-            Studying the tags used by successful videos in your niche can reveal keyword opportunities. While you shouldn&apos;t copy tags directly, understanding what works for similar content can inform your own strategy. Our tag organizer helps you collect and analyze tags from multiple sources.
-          </p>
-
-          <h3 className="text-xl font-semibold text-foreground">Common Tag Mistakes to Avoid</h3>
-          
-          <ul className="text-muted-foreground">
-            <li>Using irrelevant or misleading tags (can hurt your channel)</li>
-            <li>Stuffing tags with too many keywords</li>
-            <li>Using only single-word generic tags</li>
-            <li>Ignoring long-tail keyword opportunities</li>
-            <li>Not including your channel name</li>
-          </ul>
-
-          <h3 className="text-xl font-semibold text-foreground">Tags vs. Hashtags</h3>
-          
-          <p className="text-muted-foreground">
-            YouTube tags (in the backend) are different from hashtags (in titles/descriptions). Tags help with search algorithms, while hashtags create clickable links on the video page. Use both strategically: tags for SEO, hashtags (limited to 3-5) for topical categorization visible to viewers.
-          </p>
-
-          <h3 className="text-xl font-semibold text-foreground">Long-Tail Tags for Niche Content</h3>
-          
-          <p className="text-muted-foreground">
-            For creators in competitive niches, long-tail tags (3-5 word phrases) often provide better results than single keywords. These specific phrases have less competition and attract more targeted viewers who are more likely to engage with your content.
-          </p>
         </article>
       </section>
     </div>
