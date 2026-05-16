@@ -1,10 +1,10 @@
 import { Metadata } from "next"
 import { Mail, MapPin, Clock } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/card"
+import { Input } from "@/input"
+import { Label } from "@/label"
+import { Textarea } from "@/textarea"
+import { Button } from "@/button"
 
 export const metadata: Metadata = {
   title: "Contact Us - CreatorToolbox AI",

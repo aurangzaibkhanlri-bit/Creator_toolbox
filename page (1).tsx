@@ -1,8 +1,8 @@
 import { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, Calendar, Clock, User } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/card"
+import { Badge } from "@/badge"
 
 export const metadata: Metadata = {
   title: "Blog - CreatorToolbox AI",

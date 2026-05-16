@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { TitleAnalyzer } from "@/components/tools/title-analyzer"
+import { TitleAnalyzer } from "@/title-analyzer"
 
 export const metadata: Metadata = {
   title: "AI Viral Title Analyzer with Score Charts - CreatorToolbox AI",

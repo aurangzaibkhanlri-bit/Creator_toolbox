@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/badge"
 
 export const metadata: Metadata = {
   title: "10 Thumbnail Design Tips That Boost Click-Through Rates - CreatorToolbox AI",

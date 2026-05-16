@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { Navigation } from '@/components/navigation'
-import { Footer } from '@/components/footer'
+import { Navigation } from '@/navigation'
+import { Footer } from '@/footer'
 import './globals.css'
 
 const inter = Inter({ 

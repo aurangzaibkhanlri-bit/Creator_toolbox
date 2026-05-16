@@ -2,12 +2,13 @@
 
 import { useState, useMemo } from "react"
 import { Plus, Trash2, Copy, Check, X, ArrowUpDown, Download } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
-import { Textarea } from "@/components/ui/textarea"
+import { Button } from "@/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/card"
+import { Input } from "@/input"
+import { Label } from "@/label"
+import { Badge } from "@/badge"
+import { generateTags } from "@/gemini"
+import { Textarea } from "@/textarea"
 
 interface Tag {
   id: string
@@ -27,6 +28,10 @@ export function TagExtractor() {
   const [tags, setTags] = useState<Tag[]>([])
   const [newTag, setNewTag] = useState("")
   const [bulkInput, setBulkInput] = useState("")
+  const [videoTitle, setVideoTitle] = useState("")
+  const [generatedTags, setGeneratedTags] = useState<string[]>([])
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [tagError, setTagError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [sortOrder, setSortOrder] = useState<"alpha" | "length" | "category">("category")
   const [selectedCategory, setSelectedCategory] = useState<"all" | Tag["category"]>("all")
@@ -64,6 +69,35 @@ export function TagExtractor() {
 
   const clearAll = () => {
     setTags([])
+  }
+
+  const handleGenerateTags = async () => {
+    if (!videoTitle.trim()) return
+
+    setIsGenerating(true)
+    setTagError(null)
+
+    try {
+      const result = await generateTags(videoTitle.trim())
+      setGeneratedTags(result.tags)
+
+      const newTags = result.tags
+        .filter((tag) => tag && !tags.some((existing) => existing.text.toLowerCase() === tag.toLowerCase()))
+        .map((text) => ({
+          id: Date.now().toString() + text,
+          text,
+          category: "secondary" as const,
+        }))
+
+      if (newTags.length > 0) {
+        setTags([...tags, ...newTags])
+      }
+    } catch (error) {
+      console.error("Tag generation error:", error)
+      setTagError("Failed to generate tags. Please try again.")
+    } finally {
+      setIsGenerating(false)
+    }
   }
 
   const sortedTags = useMemo(() => {
@@ -115,6 +149,65 @@ export function TagExtractor() {
     <div className="space-y-8">
       {/* Input Section */}
       <div className="grid gap-6 lg:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle>AI Tag Generator</CardTitle>
+            <CardDescription>Enter your video title and generate 5-8 relevant tags and hashtags automatically.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="video-title">Video Title</Label>
+              <Input
+                id="video-title"
+                placeholder="Enter your video title..."
+                value={videoTitle}
+                onChange={(e) => setVideoTitle(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault()
+                    handleGenerateTags()
+                  }
+                }}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Button onClick={handleGenerateTags} disabled={!videoTitle.trim() || isGenerating}>
+                {isGenerating ? "Generating..." : "Generate 5-8 Tags"}
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => setVideoTitle("")}>Clear</Button>
+            </div>
+            {tagError && (
+              <p className="text-sm text-destructive">{tagError}</p>
+            )}
+            {generatedTags.length > 0 && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <div>
+                    <p className="text-sm font-medium">AI Suggested Hashtags</p>
+                    <p className="text-xs text-muted-foreground">Generated from your video title.</p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      navigator.clipboard.writeText(generatedTags.join(", "))
+                    }}
+                  >
+                    Copy
+                  </Button>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {generatedTags.map((tag) => (
+                    <Badge key={tag} variant="secondary" className="text-sm py-1 px-3">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Single Tag Input */}
         <Card>
           <CardHeader>

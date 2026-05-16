@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { ArrowRight, Image, Type, FileText, Tags, Zap, Shield, Clock, BarChart3, Sparkles, Brain } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/card"
 
 const tools = [
   {

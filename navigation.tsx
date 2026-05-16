@@ -3,13 +3,13 @@
 import Link from "next/link"
 import { useState } from "react"
 import { Menu, X, Youtube, ChevronDown } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/dropdown-menu"
 
 const tools = [
   { name: "Thumbnail Checker", href: "/tools/thumbnail-checker", description: "Check safe zones for YouTube thumbnails" },

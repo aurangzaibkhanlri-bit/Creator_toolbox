@@ -2,11 +2,11 @@
 
 import { useState } from "react"
 import { Sparkles, AlertCircle, CheckCircle2, TrendingUp, Hash, Zap, Copy, Check, Brain, Search, Target, MousePointer } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Button } from "@/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/card"
+import { Input } from "@/input"
+import { Badge } from "@/badge"
+import { Skeleton } from "@/skeleton"
 import {
   RadarChart,
   PolarGrid,
@@ -19,7 +19,7 @@ import {
   Cell,
   Tooltip,
 } from "recharts"
-import { analyzeTitle, type TitleAnalysis } from "@/lib/gemini"
+import { analyzeTitle, type TitleAnalysis } from "@/gemini"
 
 const POWER_WORDS = [
   "shocking", "ultimate", "revealed", "secret", "proven", "amazing", "incredible", "unbelievable",

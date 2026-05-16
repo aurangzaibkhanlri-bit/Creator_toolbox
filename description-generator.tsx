@@ -1,87 +1,23 @@
 "use client"
 
 import { useState } from "react"
-import { Plus, Trash2, Copy, Check, MoveUp, MoveDown, Sparkles, Tag, FileText, Hash } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
-import { Skeleton } from "@/components/ui/skeleton"
-import { generateDescriptionAndTags, type DescriptionTagsResult } from "@/lib/gemini"
-
-interface Timestamp {
-  id: string
-  time: string
-  label: string
-}
-
-interface SocialLink {
-  id: string
-  platform: string
-  url: string
-}
+import { Copy, Check, Sparkles, Tag, FileText, Hash } from "lucide-react"
+import { Button } from "@/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/card"
+import { Input } from "@/input"
+import { Label } from "@/label"
+import { Badge } from "@/badge"
+import { Skeleton } from "@/skeleton"
+import { generateDescriptionAndTags, type DescriptionTagsResult } from "@/gemini"
 
 export function DescriptionGenerator() {
   const [videoTopic, setVideoTopic] = useState("")
-  const [keywords, setKeywords] = useState("")
-  const [timestamps, setTimestamps] = useState<Timestamp[]>([
-    { id: "1", time: "0:00", label: "Intro" },
-  ])
-  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([
-    { id: "1", platform: "Instagram", url: "" },
-    { id: "2", platform: "Twitter", url: "" },
-  ])
-  const [channelName, setChannelName] = useState("")
   const [copiedDesc, setCopiedDesc] = useState(false)
   const [copiedTags, setCopiedTags] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
   const [aiResult, setAiResult] = useState<DescriptionTagsResult | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const addTimestamp = () => {
-    setTimestamps([
-      ...timestamps,
-      { id: Date.now().toString(), time: "", label: "" },
-    ])
-  }
-
-  const removeTimestamp = (id: string) => {
-    setTimestamps(timestamps.filter((t) => t.id !== id))
-  }
-
-  const updateTimestamp = (id: string, field: "time" | "label", value: string) => {
-    setTimestamps(
-      timestamps.map((t) => (t.id === id ? { ...t, [field]: value } : t))
-    )
-  }
-
-  const moveTimestamp = (index: number, direction: "up" | "down") => {
-    const newTimestamps = [...timestamps]
-    const newIndex = direction === "up" ? index - 1 : index + 1
-    if (newIndex >= 0 && newIndex < timestamps.length) {
-      [newTimestamps[index], newTimestamps[newIndex]] = [newTimestamps[newIndex], newTimestamps[index]]
-      setTimestamps(newTimestamps)
-    }
-  }
-
-  const addSocialLink = () => {
-    setSocialLinks([
-      ...socialLinks,
-      { id: Date.now().toString(), platform: "", url: "" },
-    ])
-  }
-
-  const removeSocialLink = (id: string) => {
-    setSocialLinks(socialLinks.filter((s) => s.id !== id))
-  }
-
-  const updateSocialLink = (id: string, field: "platform" | "url", value: string) => {
-    setSocialLinks(
-      socialLinks.map((s) => (s.id === id ? { ...s, [field]: value } : s))
-    )
-  }
 
   const handleGenerate = async () => {
     if (!videoTopic.trim()) return
@@ -90,17 +26,7 @@ export function DescriptionGenerator() {
     setError(null)
     
     try {
-      const keywordsArray = keywords.split(",").map(k => k.trim()).filter(Boolean)
-      const validSocialLinks = socialLinks.filter(s => s.platform && s.url)
-      const validTimestamps = timestamps.filter(t => t.time && t.label)
-      
-      const result = await generateDescriptionAndTags(
-        videoTopic,
-        keywordsArray.length > 0 ? keywordsArray : [videoTopic],
-        channelName || "Our Channel",
-        validSocialLinks,
-        validTimestamps.length > 0 ? validTimestamps : undefined
-      )
+      const result = await generateDescriptionAndTags(videoTopic)
       setAiResult(result)
     } catch (err) {
       setError("Failed to generate content. Please try again.")
@@ -137,11 +63,11 @@ export function DescriptionGenerator() {
               <FileText className="h-5 w-5 text-[#6366f1]" />
               Video Information
             </CardTitle>
-            <CardDescription>Provide details about your video for AI-powered generation</CardDescription>
+            <CardDescription>Only the video title is required. AI will generate an optimized description, relevant tags, hashtags, and 10 SEO keywords.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="topic">Video Topic / Title</Label>
+              <Label htmlFor="topic">Video Title</Label>
               <Input
                 id="topic"
                 placeholder="e.g., 10 Tips to Grow Your YouTube Channel in 2024"
@@ -149,121 +75,6 @@ export function DescriptionGenerator() {
                 onChange={(e) => setVideoTopic(e.target.value)}
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="channel">Channel Name</Label>
-              <Input
-                id="channel"
-                placeholder="Your Channel Name"
-                value={channelName}
-                onChange={(e) => setChannelName(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="keywords">Keywords (comma separated)</Label>
-              <Textarea
-                id="keywords"
-                placeholder="YouTube tips, video editing, content creation, vlogging..."
-                value={keywords}
-                onChange={(e) => setKeywords(e.target.value)}
-                rows={2}
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Timestamps */}
-        <Card className="chart-glow border-border/50">
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
-              <span>Timestamps (Optional)</span>
-              <Button variant="outline" size="sm" onClick={addTimestamp}>
-                <Plus className="mr-2 h-4 w-4" />
-                Add
-              </Button>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {timestamps.map((timestamp, index) => (
-              <div key={timestamp.id} className="flex items-center gap-2">
-                <Input
-                  placeholder="0:00"
-                  value={timestamp.time}
-                  onChange={(e) => updateTimestamp(timestamp.id, "time", e.target.value)}
-                  className="w-20"
-                />
-                <Input
-                  placeholder="Section label"
-                  value={timestamp.label}
-                  onChange={(e) => updateTimestamp(timestamp.id, "label", e.target.value)}
-                  className="flex-1"
-                />
-                <div className="flex gap-1">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => moveTimestamp(index, "up")}
-                    disabled={index === 0}
-                  >
-                    <MoveUp className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => moveTimestamp(index, "down")}
-                    disabled={index === timestamps.length - 1}
-                  >
-                    <MoveDown className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => removeTimestamp(timestamp.id)}
-                    disabled={timestamps.length === 1}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        {/* Social Links */}
-        <Card className="chart-glow border-border/50">
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
-              <span>Social Links</span>
-              <Button variant="outline" size="sm" onClick={addSocialLink}>
-                <Plus className="mr-2 h-4 w-4" />
-                Add
-              </Button>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {socialLinks.map((link) => (
-              <div key={link.id} className="flex items-center gap-2">
-                <Input
-                  placeholder="Platform"
-                  value={link.platform}
-                  onChange={(e) => updateSocialLink(link.id, "platform", e.target.value)}
-                  className="w-32"
-                />
-                <Input
-                  placeholder="https://..."
-                  value={link.url}
-                  onChange={(e) => updateSocialLink(link.id, "url", e.target.value)}
-                  className="flex-1"
-                />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => removeSocialLink(link.id)}
-                  disabled={socialLinks.length === 1}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-            ))}
           </CardContent>
         </Card>
 

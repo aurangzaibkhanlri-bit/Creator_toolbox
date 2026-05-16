@@ -2,11 +2,12 @@
 
 import { useState, useRef, useCallback } from "react"
 import { Upload, Download, RotateCcw, Eye, EyeOff, AlertCircle, Clock, Play, Sparkles, CheckCircle2, TrendingUp, Globe, BarChart3, Zap } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Button } from "@/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/card"
+import { Input } from "@/input"
+import { Switch } from "@/switch"
+import { Label } from "@/label"
+import { Skeleton } from "@/skeleton"
 import {
   BarChart,
   Bar,
@@ -19,7 +20,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts"
-import { analyzeThumbnail, type ThumbnailAnalysis } from "@/lib/gemini"
+import { analyzeThumbnail, type ThumbnailAnalysis } from "@/gemini"
 
 export function ThumbnailChecker() {
   const [image, setImage] = useState<string | null>(null)
@@ -29,6 +30,7 @@ export function ThumbnailChecker() {
   const [showProgress, setShowProgress] = useState(true)
   const [isDragging, setIsDragging] = useState(false)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [videoTitle, setVideoTitle] = useState("")
   const [analysis, setAnalysis] = useState<ThumbnailAnalysis | null>(null)
   const [error, setError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -84,7 +86,7 @@ export function ThumbnailChecker() {
     setError(null)
     
     try {
-      const result = await analyzeThumbnail(image)
+      const result = await analyzeThumbnail(image, videoTitle.trim() || undefined)
       setAnalysis(result)
     } catch (err) {
       setError("Failed to analyze thumbnail. Please try again.")
@@ -206,6 +208,24 @@ export function ThumbnailChecker() {
       {/* Preview Area */}
       {image && (
         <div className="space-y-6">
+          <Card className="chart-glow border-border/50">
+            <CardHeader>
+              <CardTitle>Video Title for AI Context</CardTitle>
+              <CardDescription>Optional: provide your video title so the thumbnail critique also evaluates relevance.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <Label htmlFor="thumbnail-title">Video Title</Label>
+                <Input
+                  id="thumbnail-title"
+                  placeholder="e.g., How to Grow Your YouTube Channel"
+                  value={videoTitle}
+                  onChange={(e) => setVideoTitle(e.target.value)}
+                />
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Controls */}
           <Card className="chart-glow border-border/50">
             <CardContent className="flex flex-wrap items-center gap-6 py-4">

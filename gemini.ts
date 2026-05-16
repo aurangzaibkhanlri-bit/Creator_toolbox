@@ -40,13 +40,14 @@ export interface DescriptionTagsResult {
   keywords: string[];
 }
 
-export interface HashtagResult {
-  hashtags: string[];
+export interface TagResult {
+  tags: string[];
   relatedTopics: string[];
 }
 
 export async function analyzeThumbnail(
-  imageBase64: string
+  imageBase64: string,
+  videoTitle?: string
 ): Promise<ThumbnailAnalysis> {
   if (!process.env.GEMINI_API_KEY) {
     console.error("[v0] GEMINI_API_KEY is not set");
@@ -68,48 +69,25 @@ export async function analyzeThumbnail(
       }
     }
 
-    const prompt = `You are a YouTube thumbnail expert analyst. Analyze this thumbnail image and provide a detailed critique.
+    const prompt = `You are a YouTube thumbnail expert analyst. Analyze this thumbnail image and provide a detailed critique.${videoTitle ? ` Use the following video title for relevance and context: "${videoTitle}".` : ""}\n\nReturn your analysis in this EXACT JSON format (no markdown, no code blocks, just raw JSON):\n{\n  "regionalAppeal": {\n    "usa": <number 0-100 for USA audience appeal>,\n    "uk": <number 0-100 for UK audience appeal>,\n    "global": <number 0-100 for global audience appeal>\n  },\n  "attentionFlow": [\n    {"time": "0s", "interest": <number 0-100>},\n    {"time": "0.5s", "interest": <number 0-100>},\n    {"time": "1s", "interest": <number 0-100>},\n    {"time": "1.5s", "interest": <number 0-100>},\n    {"time": "2s", "interest": <number 0-100>},\n    {"time": "2.5s", "interest": <number 0-100>},\n    {"time": "3s", "interest": <number 0-100>}\n  ],\n  "textReadability": <number 0-100>,\n  "contrastBalance": <number 0-100>,\n  "critique": "<2-3 sentence overall critique>",\n  "strengths": ["<strength 1>", "<strength 2>", "<strength 3>"],\n  "improvements": ["<improvement 1>", "<improvement 2>", "<improvement 3>"]\n}\n\nConsider:\n- Color psychology and contrast\n- Text visibility and font choices\n- Face/emotion prominence\n- Composition and visual hierarchy\n- Cultural appeal differences between USA, UK, and global audiences\n- How attention flows across the thumbnail over ~3 seconds of viewing`;
 
-Return your analysis in this EXACT JSON format (no markdown, no code blocks, just raw JSON):
-{
-  "regionalAppeal": {
-    "usa": <number 0-100 for USA audience appeal>,
-    "uk": <number 0-100 for UK audience appeal>,
-    "global": <number 0-100 for global audience appeal>
-  },
-  "attentionFlow": [
-    {"time": "0s", "interest": <number 0-100>},
-    {"time": "0.5s", "interest": <number 0-100>},
-    {"time": "1s", "interest": <number 0-100>},
-    {"time": "1.5s", "interest": <number 0-100>},
-    {"time": "2s", "interest": <number 0-100>},
-    {"time": "2.5s", "interest": <number 0-100>},
-    {"time": "3s", "interest": <number 0-100>}
-  ],
-  "textReadability": <number 0-100>,
-  "contrastBalance": <number 0-100>,
-  "critique": "<2-3 sentence overall critique>",
-  "strengths": ["<strength 1>", "<strength 2>", "<strength 3>"],
-  "improvements": ["<improvement 1>", "<improvement 2>", "<improvement 3>"]
-}
-
-Consider:
-- Color psychology and contrast
-- Text visibility and font choices
-- Face/emotion prominence
-- Composition and visual hierarchy
-- Cultural appeal differences between USA, UK, and global audiences
-- How attention flows across the thumbnail over ~3 seconds of viewing`;
-
-    const result = await model.generateContent([
-      prompt,
-      {
-        inlineData: {
-          mimeType: mimeType,
-          data: base64Data,
+    const result = await model.generateContent({
+      contents: [
+        {
+          role: "user",
+          parts: [
+            { text: prompt },
+            {
+              inlineData: {
+                mimeType,
+                data: base64Data,
+              },
+            },
+          ],
         },
-      },
-    ]);
+      ],
+      responseMimeType: "application/json",
+    });
 
     const response = await result.response;
     const text = response.text();
@@ -190,8 +168,7 @@ Consider:
 }
 
 export async function generateDescriptionAndTags(
-  videoTitle: string,
-  channelName?: string
+  videoTitle: string
 ): Promise<DescriptionTagsResult> {
   if (!process.env.GEMINI_API_KEY) {
     throw new Error("API key not configured");
@@ -203,7 +180,6 @@ export async function generateDescriptionAndTags(
     const prompt = `You are a YouTube SEO expert. Generate an optimized video description and tags based ONLY on this video title.
 
 Video Title: "${videoTitle}"
-${channelName ? `Channel Name: ${channelName}` : ""}
 
 Return in this EXACT JSON format (no markdown, no code blocks, just raw JSON):
 {
@@ -212,7 +188,7 @@ Return in this EXACT JSON format (no markdown, no code blocks, just raw JSON):
     - What viewers will learn/see (bullet points)
     - Call to action (subscribe, like, comment)
     - Note: Do NOT include timestamps or social links as they were not provided>",
-  "tags": ["<tag1>", "<tag2>", ... exactly 15 relevant SEO tags for YouTube],
+  "tags": ["<tag1>", "<tag2>", "<tag3>", "<tag4>", "<tag5>", "<tag6>", "<tag7>", "<tag8>"],
   "hashtags": ["#<hashtag1>", "#<hashtag2>", "#<hashtag3>", "#<hashtag4>", "#<hashtag5>"],
   "keywords": ["<keyword1>", "<keyword2>", "<keyword3>", "<keyword4>", "<keyword5>", "<keyword6>", "<keyword7>", "<keyword8>", "<keyword9>", "<keyword10>"]
 }
@@ -221,9 +197,12 @@ IMPORTANT:
 - Generate exactly 10 trending/relevant keywords based on the video title topic
 - Keywords should be terms people actively search for on YouTube
 - Make the description compelling and SEO-optimized
-- Tags should include both specific and broad terms`;
+- Tags should include 5-8 specific and broad terms`;
 
-    const result = await model.generateContent(prompt);
+    const result = await model.generateContent({
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      responseMimeType: "application/json",
+    });
     const response = await result.response;
     const text = response.text();
 
@@ -245,7 +224,7 @@ IMPORTANT:
   }
 }
 
-export async function generateHashtags(videoTitle: string): Promise<HashtagResult> {
+export async function generateTags(videoTitle: string): Promise<TagResult> {
   if (!process.env.GEMINI_API_KEY) {
     throw new Error("API key not configured");
   }
@@ -253,25 +232,27 @@ export async function generateHashtags(videoTitle: string): Promise<HashtagResul
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const prompt = `You are a YouTube and social media hashtag expert. Generate trending and relevant hashtags for this video.
+    const prompt = `You are a YouTube tag expert. Generate 5-8 highly relevant YouTube tags based ONLY on this video title.
 
 Video Title: "${videoTitle}"
 
 Return in this EXACT JSON format (no markdown, no code blocks, just raw JSON):
 {
-  "hashtags": ["#hashtag1", "#hashtag2", "#hashtag3", "#hashtag4", "#hashtag5", "#hashtag6", "#hashtag7", "#hashtag8"],
+  "tags": ["<tag1>", "<tag2>", "<tag3>", "<tag4>", "<tag5>", "<tag6>", "<tag7>", "<tag8>"],
   "relatedTopics": ["<related topic 1>", "<related topic 2>", "<related topic 3>", "<related topic 4>", "<related topic 5>"]
 }
 
 IMPORTANT:
-- Generate exactly 5-8 highly relevant hashtags
-- Hashtags should be trending and searchable on YouTube/social media
-- Include a mix of specific and broad hashtags
-- Do NOT include spaces in hashtags
-- All hashtags must start with #
+- Generate exactly 5-8 highly relevant tags
+- Tags should be searchable and closely tied to the video title topic
+- Include both specific and broader terms
+- Do NOT include hashtags or the '#' symbol
 - Related topics are suggestions for similar content`;
 
-    const result = await model.generateContent(prompt);
+    const result = await model.generateContent({
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      responseMimeType: "application/json",
+    });
     const response = await result.response;
     const text = response.text();
 
@@ -286,9 +267,9 @@ IMPORTANT:
       throw new Error("Failed to parse AI response");
     }
 
-    return JSON.parse(jsonMatch[0]) as HashtagResult;
+    return JSON.parse(jsonMatch[0]) as TagResult;
   } catch (error) {
-    console.error("[v0] Hashtag generation error:", error);
+    console.error("[v0] Tag generation error:", error);
     throw error;
   }
 }

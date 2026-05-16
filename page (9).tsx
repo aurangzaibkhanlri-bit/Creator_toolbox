@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { DescriptionGenerator } from "@/components/tools/description-generator"
+import { DescriptionGenerator } from "@/description-generator"
 
 export const metadata: Metadata = {
   title: "AI Description & Tag Generator - CreatorToolbox AI",

@@ -1,8 +1,8 @@
 import { Metadata } from "next"
 import Link from "next/link"
 import { Youtube, Users, Target, Heart } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/card"
+import { Button } from "@/button"
 
 export const metadata: Metadata = {
   title: "About Us - CreatorToolbox AI",

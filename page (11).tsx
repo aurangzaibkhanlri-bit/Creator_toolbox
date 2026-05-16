@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { ThumbnailChecker } from "@/components/tools/thumbnail-checker"
+import { ThumbnailChecker } from "@/thumbnail-checker"
 
 export const metadata: Metadata = {
   title: "AI Thumbnail Scanner & Safe-Zone Checker - CreatorToolbox AI",

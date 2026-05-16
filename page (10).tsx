@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { TagExtractor } from "@/components/tools/tag-extractor"
+import { TagExtractor } from "@/tag-extractor"
 
 export const metadata: Metadata = {
   title: "Tag Extractor & Organizer - CreatorToolbox AI",
